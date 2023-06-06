@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Logger 志接口
+// Logger 日志接口
 type Logger interface {
 	UnKnow(format string, a ...any)
 	Debug(format string, a ...any)
