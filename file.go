@@ -35,24 +35,25 @@ func NewFileLogger(level string, filePath string, maxFileSize int64) *FileLogger
 	return fl
 }
 func (f *FileLogger) InitFile() error {
-	err := os.Mkdir("right", 0666)
+	err := os.MkdirAll("logs/right", os.ModePerm)
 	if err != nil {
-		fmt.Printf("OPEN LOG FILE FAILED,err :%v", err)
+		fmt.Println("Failed to create logs/right directory:", err)
 		return err
 	}
-	err = os.Mkdir("error", 0666)
+
+	err = os.MkdirAll("logs/error", os.ModePerm)
 	if err != nil {
-		fmt.Printf("OPEN LOG FILE FAILED,err :%v", err)
+		fmt.Println("Failed to create logs/error directory:", err)
 		return err
 	}
-	filepath := path.Join(f.filePath+"/right", f.fileName)
+	filepath := path.Join("./logs/right", f.fileName)
 	fileObj, err := os.OpenFile(filepath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		fmt.Printf("OPEN LOG FILE FAILED,err :%v", err)
 		return err
 	}
 	//defer fileObj.Close()
-	errFileObj, err := os.OpenFile(path.Join(f.filePath+"/error", "error.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	errFileObj, err := os.OpenFile(path.Join("./logs/error", "error.log"), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		fmt.Printf("OPEN ERR LOG FILE FAILED,err :%v", err)
 		return err
