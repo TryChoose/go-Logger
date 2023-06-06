@@ -17,14 +17,12 @@ type FileLogger struct {
 }
 
 // NewFileLogger 构造函数
-func NewFileLogger(level string, filePath string, maxFileSize int64) *FileLogger {
+func NewFileLogger(level string, maxFileSize int64) *FileLogger {
 	logLevel, err := ParseLogLevel(level)
-
 	if err != nil {
 		panic(err)
 	}
 	fl := &FileLogger{Level: logLevel,
-		filePath:    filePath,
 		fileName:    time.Now().Format("2006-01-02") + ".log",
 		maxFileSize: maxFileSize,
 	}
